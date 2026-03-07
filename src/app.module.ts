@@ -9,6 +9,7 @@ import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handleba
 import { DatabaseModule } from './database/database.module';
 import databaseConfig from './config/database.config';
 import { UsersModule } from './modules/users/users.module';
+import { FirebaseModule } from './modules/firebase/firebase.module';
 
 const configService = new ConfigService();
 
@@ -21,6 +22,7 @@ const configService = new ConfigService();
     }),
     DatabaseModule,
     UsersModule,
+    FirebaseModule,
     JwtModule.register({
       secret: String(configService.get('JWT_ACCESS_TOKEN_SECRET_KEY')),
       signOptions: { expiresIn: configService.get('JWT_ACCESS_TOKEN_EXPIRY') },
@@ -40,7 +42,7 @@ const configService = new ConfigService();
           },
         },
         defaults: {
-          from: '"Oxtel"  <oxtel@gmail.com>',
+          from: '"EventCraft"  <eandc@gmail.com>',
         },
         template: {
           dir: __dirname + '/../templates',

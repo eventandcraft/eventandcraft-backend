@@ -15,6 +15,13 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
         database: configService.get<string>('database.database'),
         autoLoadModels: true,
         synchronize: true, // Used for dev environment
+        ssl: true,
+        dialectOptions: {
+          ssl: {
+            require: true,
+            rejectUnauthorized: false,
+          },
+        },
         define: {
           timestamps: true, // Adds createdAt and updatedAt automatically
           underscored: true, // Optional: converts camelCase to snake_case for DB columns
