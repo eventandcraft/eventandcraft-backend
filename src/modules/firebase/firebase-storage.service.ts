@@ -2,9 +2,10 @@ import { Injectable, Logger, InternalServerErrorException } from '@nestjs/common
 import { ConfigService } from '@nestjs/config';
 import { FirebaseService } from './firebase.service';
 import * as admin from 'firebase-admin';
+import { FileStorageService } from '../storage/storage.service';
 
 @Injectable()
-export class FirebaseStorageService {
+export class FirebaseStorageService implements FileStorageService {
   private readonly logger = new Logger(FirebaseStorageService.name);
 
   constructor(

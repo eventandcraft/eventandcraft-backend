@@ -10,6 +10,7 @@ import { DatabaseModule } from './database/database.module';
 import databaseConfig from './config/database.config';
 import { UsersModule } from './modules/users/users.module';
 import { FirebaseModule } from './modules/firebase/firebase.module';
+import { StorageModule } from './modules/storage/storage.module';
 
 const configService = new ConfigService();
 
@@ -23,6 +24,7 @@ const configService = new ConfigService();
     DatabaseModule,
     UsersModule,
     FirebaseModule,
+    StorageModule,
     JwtModule.register({
       secret: String(configService.get('JWT_ACCESS_TOKEN_SECRET_KEY')),
       signOptions: { expiresIn: configService.get('JWT_ACCESS_TOKEN_EXPIRY') },
