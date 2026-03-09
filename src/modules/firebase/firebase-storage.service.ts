@@ -1,4 +1,8 @@
-import { Injectable, Logger, InternalServerErrorException } from '@nestjs/common';
+import {
+  Injectable,
+  Logger,
+  InternalServerErrorException,
+} from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { FirebaseService } from './firebase.service';
 import * as admin from 'firebase-admin';
@@ -20,13 +24,21 @@ export class FirebaseStorageService implements FileStorageService {
    * @param mimetype - MIME type of the file
    * @returns Public URL of the uploaded file
    */
-  async uploadFile(fileBuffer: Buffer, originalName: string, mimetype: string): Promise<string> {
+  async uploadFile(
+    fileBuffer: Buffer,
+    originalName: string,
+    mimetype: string,
+  ): Promise<string> {
     try {
       const storage = this.firebaseService.getStorage();
-      const bucketName = this.configService.get<string>('firebase.storageBucket');
-      
+      const bucketName = this.configService.get<string>(
+        'firebase.storageBucket',
+      );
+
       if (!bucketName) {
-        throw new InternalServerErrorException('Storage bucket configuration is missing');
+        throw new InternalServerErrorException(
+          'Storage bucket configuration is missing',
+        );
       }
 
       const bucket = storage.bucket(bucketName);
@@ -58,14 +70,18 @@ export class FirebaseStorageService implements FileStorageService {
   async deleteFile(fileUrl: string): Promise<void> {
     try {
       const storage = this.firebaseService.getStorage();
-      const bucketName = this.configService.get<string>('firebase.storageBucket');
-      
+      const bucketName = this.configService.get<string>(
+        'firebase.storageBucket',
+      );
+
       if (!bucketName) {
-        throw new InternalServerErrorException('Storage bucket configuration is missing');
+        throw new InternalServerErrorException(
+          'Storage bucket configuration is missing',
+        );
       }
 
       const bucket = storage.bucket(bucketName);
-      
+
       // Extract file name from url
       const fileNameMatch = fileUrl.split(`${bucketName}/`);
       if (fileNameMatch.length < 2) {
@@ -78,7 +94,10 @@ export class FirebaseStorageService implements FileStorageService {
       await file.delete();
       this.logger.log(`File deleted successfully: ${uniqueFileName}`);
     } catch (error) {
-      this.logger.error(`Error deleting file from Firebase Storage: ${fileUrl}`, error);
+      this.logger.error(
+        `Error deleting file from Firebase Storage: ${fileUrl}`,
+        error,
+      );
       throw new InternalServerErrorException('Could not delete file');
     }
   }
@@ -90,10 +109,14 @@ export class FirebaseStorageService implements FileStorageService {
   async getSignedUrl(fileName: string): Promise<string> {
     try {
       const storage = this.firebaseService.getStorage();
-      const bucketName = this.configService.get<string>('firebase.storageBucket');
+      const bucketName = this.configService.get<string>(
+        'firebase.storageBucket',
+      );
 
       if (!bucketName) {
-        throw new InternalServerErrorException('Storage bucket configuration is missing');
+        throw new InternalServerErrorException(
+          'Storage bucket configuration is missing',
+        );
       }
 
       const bucket = storage.bucket(bucketName);
