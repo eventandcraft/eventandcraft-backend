@@ -11,6 +11,10 @@ import databaseConfig from './config/database.config';
 import { UsersModule } from './modules/users/users.module';
 import { FirebaseModule } from './modules/firebase/firebase.module';
 import { StorageModule } from './modules/storage/storage.module';
+import { PostsModule } from './modules/posts/posts.module';
+import { SocialModule } from './modules/social/social.module';
+import { ReviewsModule } from './modules/reviews/reviews.module';
+import { CategoriesModule } from './modules/categories/categories.module';
 
 const configService = new ConfigService();
 
@@ -25,6 +29,10 @@ const configService = new ConfigService();
     UsersModule,
     FirebaseModule,
     StorageModule,
+    PostsModule,
+    SocialModule,
+    ReviewsModule,
+    CategoriesModule,
     JwtModule.register({
       secret: String(configService.get('JWT_ACCESS_TOKEN_SECRET_KEY')),
       signOptions: { expiresIn: configService.get('JWT_ACCESS_TOKEN_EXPIRY') },
@@ -61,4 +69,4 @@ const configService = new ConfigService();
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule { }
+export class AppModule {}

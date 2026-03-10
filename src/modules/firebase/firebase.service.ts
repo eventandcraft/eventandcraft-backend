@@ -18,11 +18,15 @@ export class FirebaseService implements OnModuleInit {
   private initializeFirebase() {
     if (admin.apps.length === 0) {
       const projectId = this.configService.get<string>('firebase.projectId');
-      const clientEmail = this.configService.get<string>('firebase.clientEmail');
+      const clientEmail = this.configService.get<string>(
+        'firebase.clientEmail',
+      );
       const privateKey = this.configService.get<string>('firebase.privateKey');
 
       if (!projectId || !clientEmail || !privateKey) {
-        this.logger.warn('Firebase configuration is missing! Please set in .env');
+        this.logger.warn(
+          'Firebase configuration is missing! Please set in .env',
+        );
         return;
       }
 

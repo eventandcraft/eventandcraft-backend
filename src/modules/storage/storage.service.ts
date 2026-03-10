@@ -9,7 +9,11 @@ export abstract class FileStorageService {
    * @param mimetype - MIME type of the file
    * @returns Public URL of the uploaded file
    */
-  abstract uploadFile(fileBuffer: Buffer, originalName: string, mimetype: string): Promise<string>;
+  abstract uploadFile(
+    fileBuffer: Buffer,
+    originalName: string,
+    mimetype: string,
+  ): Promise<string>;
 
   /**
    * Deletes a file from the storage provider by its url

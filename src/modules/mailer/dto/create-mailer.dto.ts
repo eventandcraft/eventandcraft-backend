@@ -1,4 +1,10 @@
-import { IsEmail, IsNotEmpty, IsString, IsObject, IsEnum } from 'class-validator';
+import {
+  IsEmail,
+  IsNotEmpty,
+  IsString,
+  IsObject,
+  IsEnum,
+} from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export enum EMAIL_TEMPLATES {
