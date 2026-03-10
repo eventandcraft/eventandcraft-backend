@@ -4,10 +4,10 @@ import { Column, DataType, Model, Table } from 'sequelize-typescript';
   timestamps: true,
   paranoid: true, // Enables soft deletion (deletedAt)
 })
-export class BaseModel<T extends {} = {}, T2 extends {} = {}> extends Model<
-  T,
-  T2
-> {
+export class BaseModel<
+  T extends object = object,
+  T2 extends object = object,
+> extends Model<T, T2> {
   @Column({
     type: DataType.UUID,
     defaultValue: DataType.UUIDV4,

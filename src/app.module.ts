@@ -17,6 +17,7 @@ import { ReviewsModule } from './modules/reviews/reviews.module';
 import { CategoriesModule } from './modules/categories/categories.module';
 
 const configService = new ConfigService();
+import { AuthModule } from './modules/auth/auth.module';
 
 @Module({
   imports: [
@@ -33,11 +34,20 @@ const configService = new ConfigService();
     SocialModule,
     ReviewsModule,
     CategoriesModule,
+    AuthModule,
     JwtModule.register({
       secret: String(configService.get('JWT_ACCESS_TOKEN_SECRET_KEY')),
       signOptions: { expiresIn: configService.get('JWT_ACCESS_TOKEN_EXPIRY') },
 
       global: true,
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: async (configService: ConfigService) => ({
+        secret: String(configService.get('JWT_ACCESS_TOKEN_SECRET_KEY')),
+        signOptions: {
+          expiresIn: configService.get('JWT_ACCESS_TOKEN_EXPIRY', '15m'),
+        },
+      }),
     }),
 
     NodeMailerModule.forRootAsync({
@@ -69,4 +79,4 @@ const configService = new ConfigService();
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule { }
