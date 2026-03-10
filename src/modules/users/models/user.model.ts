@@ -7,22 +7,42 @@ import { BaseModel } from '../../../common/models/base.model';
 export class User extends BaseModel<User> {
   @Column({
     type: DataType.STRING,
-    allowNull: false,
+    allowNull: true,
   })
   firstName: string;
 
   @Column({
     type: DataType.STRING,
-    allowNull: false,
+    allowNull: true,
   })
   lastName: string;
 
   @Column({
     type: DataType.STRING,
-    allowNull: false,
+    allowNull: true,
     unique: true,
   })
   email: string;
+
+  @Column({
+    type: DataType.STRING,
+    allowNull: true,
+    unique: true,
+  })
+  phoneNumber: string;
+
+  @Column({
+    type: DataType.STRING,
+    allowNull: true,
+    unique: true,
+  })
+  firebaseUid: string;
+
+  @Column({
+    type: DataType.TEXT,
+    allowNull: true,
+  })
+  refreshToken: string;
 
   @Column({
     type: DataType.BOOLEAN,

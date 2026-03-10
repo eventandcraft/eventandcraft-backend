@@ -3,7 +3,7 @@ import { CreateMailerDto, MailParams } from './dto/create-mailer.dto';
 import { MailerService as NodeMailerService } from '@nestjs-modules/mailer';
 @Injectable()
 export class MailerService {
-  constructor(private readonly nodeMailerService: NodeMailerService) { }
+  constructor(private readonly nodeMailerService: NodeMailerService) {}
   sendPing(dto: CreateMailerDto) {
     try {
       this.nodeMailerService.sendMail({
